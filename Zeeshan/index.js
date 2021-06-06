@@ -15,7 +15,7 @@ function showOnlyCoordinates() {
     coordinates.style.display = "block";
 }
 
-function getCityFormData() {
+function getCityFormData(event) {
     // Get Data and Format into URL for GET Request 
     var data = Array.from(document.querySelectorAll(".cityNameForm .form-control")).reduce((acc, input) => ({ ...acc, [input.name]: input.value }), {});
     var cityName = "q={city name}, {state code}, {country code}";
@@ -31,4 +31,6 @@ function getCityFormData() {
     fetch(url).then(res => res.json()).then(res => {
         document.getElementsByClassName('weatherOutput')[0].innerText = JSON.stringify(res);
     });
+
+    return false;
 }
