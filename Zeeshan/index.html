@@ -18,12 +18,35 @@
 
     <br /><br />
 
-    <div class="cityName">
-      hello cityName
-    </div>
-    <div class="coordinates">
-      hello coordinates
+    <div class="cityNameForm">
+      <form>
+        City Name (Required):<input type="text" name="city name" class="form-control"><br />
+        State Code (Optional):<input type="text" name="state code" class="form-control"><br />
+        Country Code (Optional):<input type="text" name="country code" class="form-control"><br />
+        <input type="submit" value="Get Weather" onclick="getCityFormData()">
+        <input type="reset">
+      </form>
+      <br />
     </div>
 
+    <div class="coordinatesForm">
+      <form>
+        Latitude (Required):<input type="text" name="lat" class="form-control"><br />
+        Longitude (Required):<input type="text" name="long" class="form-control"><br />
+        <input type="submit" value="Get Weather">
+        <input type="reset">
+      </form>
+      <br />
+    </div>
+
+    <button onclick="getCityFormData()">get weather from city form data</button>
+
+    <div class="url"></div>
+    <br /><br /><br />
+
+    <div class="weatherOutput"></div>
+    <br /><br /><br />
+
+    <div class="weatherGraphics"></div>
   </body>
 </html>
