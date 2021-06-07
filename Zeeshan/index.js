@@ -76,3 +76,5 @@ function setIcons(iconId, displayId) {
     skycons.play();
     return skycons.set(displayId, Skycons[currentIcon]);
 }
+
+// This is me making a change - test
