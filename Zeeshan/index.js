@@ -1,7 +1,6 @@
 const default_url = "api.openweathermap.org/data/2.5/weather?{INSERT HERE}&appid=3af5e590fcb669d8f872c8520264b0a2"
 var cityName = "q={city name}, {state code}, {country code}";
 var coordinates = "lat={lat}&lon={lon}";
-var weather;
 const ICON_INDEX = {
     '01d': 'CLEAR_DAY',
     '01n': 'CLEAR_NIGHT',
@@ -39,16 +38,29 @@ function showOnlyCoordinates() {
 
 function getURLfromForm(formClass) {
     var data = Array.from(document.querySelectorAll(formClass + " .form-control")).reduce((acc, input) => ({ ...acc, [input.name]: input.value }), {});
+    [
+        ['city name', 'mississauga'],
+        ['state code', 'ontario'],
+        ['country code', 'canada']
+    ]
     Object.entries(data).map((subArray, index) => {
         cityName = cityName.replace('{' + subArray[0] + '}', subArray[1]);
     });
     var url = 'http://' + default_url.replace('{INSERT HERE}', cityName);
-    //document.getElementsByClassName('url')[0].innerText = url;
+    // document.getElementsByClassName('url')[0].innerText = url;
     return url
 }
 
-function getCityFormData(event) {
+function setIcons(iconId, displayId) {
+    const skycons = new Skycons({ color: "black" });
+    const currentIcon = ICON_INDEX[iconId];
+    skycons.play();
+    return skycons.set(displayId, Skycons[currentIcon]);
+}
+
+function getCityFormData() {
     var url = getURLfromForm('.cityNameForm')
+    var weather;
 
     // OpenWeather API Call
     fetch(url)
@@ -69,13 +81,3 @@ function getCityFormData(event) {
 
     return false;
 }
-
-function setIcons(iconId, displayId) {
-    const skycons = new Skycons({ color: "black" });
-    const currentIcon = ICON_INDEX[iconId];
-    skycons.play();
-    return skycons.set(displayId, Skycons[currentIcon]);
-}
-
-// This is me making a change - test
-// another one 
