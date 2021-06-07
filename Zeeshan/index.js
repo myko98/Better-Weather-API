@@ -1,4 +1,5 @@
 const default_url = "api.openweathermap.org/data/2.5/weather?{INSERT HERE}&appid=3af5e590fcb669d8f872c8520264b0a2"
+var cityName = "q={city name}, {state code}, {country code}";
 var coordinates = "lat={lat}&lon={lon}";
 var weather;
 const ICON_INDEX = {
@@ -36,17 +37,18 @@ function showOnlyCoordinates() {
     coordinates.style.display = "block";
 }
 
-function getCityFormData(event) {
-    // Get Data and Format into URL for GET Request 
-    var data = Array.from(document.querySelectorAll(".cityNameForm .form-control")).reduce((acc, input) => ({ ...acc, [input.name]: input.value }), {});
-    var cityName = "q={city name}, {state code}, {country code}";
+function getURLfromForm(formClass) {
+    var data = Array.from(document.querySelectorAll(formClass + " .form-control")).reduce((acc, input) => ({ ...acc, [input.name]: input.value }), {});
     Object.entries(data).map((subArray, index) => {
         cityName = cityName.replace('{' + subArray[0] + '}', subArray[1]);
     });
     var url = 'http://' + default_url.replace('{INSERT HERE}', cityName);
-
-    // Print URL -- Remove later 
     //document.getElementsByClassName('url')[0].innerText = url;
+    return url
+}
+
+function getCityFormData(event) {
+    var url = getURLfromForm('.cityNameForm')
 
     // OpenWeather API Call
     fetch(url)
@@ -55,8 +57,6 @@ function getCityFormData(event) {
             weather = res;
         })
         .then(() => {
-            //document.getElementsByClassName('weatherOutput')[0].innerText = JSON.stringify(weather);
-
             const description = 'description: ' + weather.weather[0].description;
             const temperature = 'temperature: ' + weather.main.temp;
             const time = 'time: ' + weather.dt;
@@ -64,7 +64,6 @@ function getCityFormData(event) {
             const icon = weather.weather[0].icon;
 
             document.getElementsByClassName('weatherOutput')[0].innerText = description + '\n' + temperature + '\n' + time + '\n' + cityName;
-
             setIcons(icon, document.querySelector('.icon'));
         });
 
