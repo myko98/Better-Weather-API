@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Weather App</title>
+  </head>
+  <body>
+
+    <h1>Weather Forecast with OpenWeatherAPI</h1>
+    <h2>Call Current Weather Data For One Location</h2>
+
+    <button onclick="showOnlyCityName()">By City Name</button>
+    <button onclick="showOnlyCoordinates()">By Geographic Coordinates</button>
+
+    <br /><br />
+
+    <div class="cityNameForm">
+      <form>
+        City Name (Required):<input type="text" name="city name" class="form-control"><br />
+        State Code (Optional):<input type="text" name="state code" class="form-control"><br />
+        Country Code (Optional):<input type="text" name="country code" class="form-control"><br />
+        <input type="submit" value="Get Weather" onclick="return getCityFormData();">
+        <input type="reset">
+      </form>
+      <br />
+    </div>
+
+    <div class="coordinatesForm">
+      <form>
+        Latitude (Required):<input type="text" name="lat" class="form-control"><br />
+        Longitude (Required):<input type="text" name="long" class="form-control"><br />
+        <button type="submit" value="Get Weather">
+        <input type="reset">
+      </form>
+      <br />
+    </div>
+
+    <div class="url"></div>
+    <br /><br /><br />
+
+    <div class="weatherOutput"></div>
+    <br /><br /><br />
+
+    <div class="weatherGraphics">
+      <canvas class="icon" width="128" height="128"></canvas>
+      <canvas id="icon" width="128" height="128"></canvas>
+    </div>
+
+    <script src="skycons.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
